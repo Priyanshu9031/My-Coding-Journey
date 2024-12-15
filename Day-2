@@ -1,1 +1,41 @@
+#include <iostream>
+using namespace std;
 
+int main() {
+    int number;
+
+    // Input the number
+    cout << "Enter an integer: ";
+    cin >> number;
+
+    // Check if the number is even or odd
+    if (number % 2 == 0) {
+        cout << number << " is even." << endl;
+    } else {
+        cout << number << " is odd." << endl;
+    }
+
+    return 0;
+}
+
+Pseudocode
+START
+1. Declare an integer variable `number`.
+2. Prompt the user to enter a number.
+3. Read the input into `number`.
+4. If `number % 2 == 0`:
+     a. Print "The number is even."
+5. Else:
+     a. Print "The number is odd."
+6. END
+Flowchart Description
+The flowchart will consist of the following steps:
+
+Start: The flowchart begins.
+Input: Take input for the number.
+Decision: Check if number % 2 == 0.
+If true, proceed to step 4.
+If false, proceed to step 5.
+Output Even: Print "The number is even."
+Output Odd: Print "The number is odd."
+End: The program ends.
