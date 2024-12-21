@@ -13,7 +13,7 @@ public:
 
 };
 
-
+//time complexity (onlogn)
 class Solution {
 public:
     bool containsDuplicate(vector<int>& nums) {
