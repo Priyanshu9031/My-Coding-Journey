@@ -1,0 +1,57 @@
+searching program in C++
+
+#include <iostream>
+#include <algorithm> // For std::sort
+using namespace std;
+
+// Function for linear search
+int linearSearch(int arr[], int size, int key) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == key)
+            return i; // Return index if found
+    }
+    return -1; // Return -1 if not found
+}
+
+// Function for binary search
+int binarySearch(int arr[], int size, int key) {
+    int low = 0, high = size - 1;
+    while (low <= high) {
+        int mid = (low + high) / 2;
+        if (arr[mid] == key)
+            return mid; // Return index if found
+        else if (arr[mid] < key)
+            low = mid + 1; // Search in the right half
+        else
+            high = mid - 1; // Search in the left half
+    }
+    return -1; // Return -1 if not found
+}
+
+int main() {
+    int arr[] = {10, 3, 7, 20, 15};
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int key;
+
+    cout << "Enter the number to search: ";
+    cin >> key;
+
+    // Linear Search
+    int linResult = linearSearch(arr, size, key);
+    if (linResult != -1)
+        cout << "Linear Search: Element found at index " << linResult << endl;
+    else
+        cout << "Linear Search: Element not found" << endl;
+
+    // Sort array for Binary Search
+    sort(arr, arr + size);
+
+    // Binary Search
+    int binResult = binarySearch(arr, size, key);
+    if (binResult != -1)
+        cout << "Binary Search: Element found at index " << binResult << endl;
+    else
+        cout << "Binary Search: Element not found" << endl;
+
+    return 0;
+}
