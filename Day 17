@@ -38,3 +38,39 @@ int main() {
 
     return 0;
 }
+
+Binary Tree Array Representation without using function 
+
+#include <stdio.h>
+#define MAX_SIZE 100
+
+int main() {
+    int tree[MAX_SIZE] = {0}; // Initialize tree with zeros (or placeholders)
+
+    // Assigning values to nodes
+    tree[0] = 10; // Root
+    tree[1] = 20; // Left child of root
+    tree[2] = 30; // Right child of root
+    tree[3] = 40; // Left child of node at index 1
+    tree[4] = 50; // Right child of node at index 1
+    tree[5] = 60; // Left child of node at index 2
+    tree[6] = 70; // Right child of node at index 2
+
+    // Printing the binary tree
+    printf("Array Representation of the Binary Tree:\n");
+    for (int i = 0; i < 7; i++) {
+        printf("Index %d: %d\n", i, tree[i]);
+    }
+
+    return 0;
+}
+
+         10
+       /    \
+     20      30
+    /  \    /  \
+   40  50  60  70
+
+Index:   0   1   2   3   4   5   6
+Value:  10  20  30  40  50  60  70
+
