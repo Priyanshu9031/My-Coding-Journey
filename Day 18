@@ -1,0 +1,39 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+// Function to find the maximum subset divisible by K
+int maxDivisibleSubset(const vector<int>& nums, int K) {
+    vector<int> remainderCount(K, 0);
+
+    // Count remainders
+    for (int num : nums) {
+        remainderCount[num % K]++;
+    }
+
+    // Start with at most one element from the 0 remainder group
+    int maxCount = min(remainderCount[0], 1);
+
+    // Traverse remainder groups
+    for (int i = 1; i <= K / 2; ++i) {
+        if (i != K - i) {
+            maxCount += max(remainderCount[i], remainderCount[K - i]);
+        } else {
+            // If K is even, count at most one group from the middle
+            maxCount += min(remainderCount[i], 1);
+        }
+    }
+
+    return maxCount;
+}
+
+int main() {
+    vector<int> nums = {3, 1, 4, 2, 2, 1, 9, 6};
+    int K = 3;
+
+    int result = maxDivisibleSubset(nums, K);
+    cout << "Maximum number of divisible subsets: " << result << endl;
+
+    return 0;
+}
