@@ -1,0 +1,323 @@
+Binary Heap Explanation
+A binary heap is a complete binary tree that satisfies the heap property. There are two types of binary heaps:
+
+Max Heap: In a max heap, the value of each parent node is greater than or equal to the values of its child nodes. The largest value is at the root.
+Min Heap: In a min heap, the value of each parent node is less than or equal to the values of its child nodes. The smallest value is at the root.
+Key Properties:
+
+A binary heap is implemented using an array for efficiency.
+For a node at index i:
+Its left child is at index 2*i + 1.
+Its right child is at index 2*i + 2.
+Its parent is at index (i - 1) / 2.
+Operations:
+
+Insert: Add an element to the end of the heap and "heapify up" to restore the heap property.
+Delete/Extract Root: Remove the root (maximum in a max heap or minimum in a min heap), move the last element to the root, and "heapify down" to restore the heap property.
+Binary Heap Code in C
+Here's an example implementation for a max heap in C:
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_SIZE 100
+
+typedef struct {
+    int data[MAX_SIZE];
+    int size;
+} MaxHeap;
+
+// Function to initialize the heap
+void initHeap(MaxHeap *heap) {
+    heap->size = 0;
+}
+
+// Function to swap two elements
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+// Function to heapify up (for insertion)
+void heapifyUp(MaxHeap *heap, int index) {
+    int parent = (index - 1) / 2;
+    if (index > 0 && heap->data[index] > heap->data[parent]) {
+        swap(&heap->data[index], &heap->data[parent]);
+        heapifyUp(heap, parent);
+    }
+}
+
+// Function to insert an element into the heap
+void insert(MaxHeap *heap, int value) {
+    if (heap->size == MAX_SIZE) {
+        printf("Heap is full!\n");
+        return;
+    }
+    heap->data[heap->size] = value;
+    heapifyUp(heap, heap->size);
+    heap->size++;
+}
+
+// Function to heapify down (for deletion)
+void heapifyDown(MaxHeap *heap, int index) {
+    int left = 2 * index + 1;
+    int right = 2 * index + 2;
+    int largest = index;
+
+    if (left < heap->size && heap->data[left] > heap->data[largest]) {
+        largest = left;
+    }
+    if (right < heap->size && heap->data[right] > heap->data[largest]) {
+        largest = right;
+    }
+    if (largest != index) {
+        swap(&heap->data[index], &heap->data[largest]);
+        heapifyDown(heap, largest);
+    }
+}
+
+// Function to extract the maximum element from the heap
+int extractMax(MaxHeap *heap) {
+    if (heap->size == 0) {
+        printf("Heap is empty!\n");
+        return -1;
+    }
+    int max = heap->data[0];
+    heap->data[0] = heap->data[heap->size - 1];
+    heap->size--;
+    heapifyDown(heap, 0);
+    return max;
+}
+
+// Function to print the heap
+void printHeap(MaxHeap *heap) {
+    for (int i = 0; i < heap->size; i++) {
+        printf("%d ", heap->data[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    MaxHeap heap;
+    initHeap(&heap);
+
+    insert(&heap, 10);
+    insert(&heap, 20);
+    insert(&heap, 15);
+    insert(&heap, 30);
+    insert(&heap, 40);
+
+    printf("Heap: ");
+    printHeap(&heap);
+
+    printf("Extracted Max: %d\n", extractMax(&heap));
+    printf("Heap after extraction: ");
+    printHeap(&heap);
+
+    return 0;
+}
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_SIZE 100
+
+typedef struct {
+    int data[MAX_SIZE];
+    int size;
+} MaxHeap;
+
+// Function to initialize the heap
+void initHeap(MaxHeap *heap) {
+    heap->size = 0;
+}
+
+// Function to swap two elements
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+// Function to heapify up (for insertion)
+void heapifyUp(MaxHeap *heap, int index) {
+    int parent = (index - 1) / 2;
+    if (index > 0 && heap->data[index] > heap->data[parent]) {
+        swap(&heap->data[index], &heap->data[parent]);
+        heapifyUp(heap, parent);
+    }
+}
+
+// Function to insert an element into the heap
+void insert(MaxHeap *heap, int value) {
+    if (heap->size == MAX_SIZE) {
+        printf("Heap is full!\n");
+        return;
+    }
+    heap->data[heap->size] = value;
+    heapifyUp(heap, heap->size);
+    heap->size++;
+}
+
+// Function to heapify down (for deletion)
+void heapifyDown(MaxHeap *heap, int index) {
+    int left = 2 * index + 1;
+    int right = 2 * index + 2;
+    int largest = index;
+
+    if (left < heap->size && heap->data[left] > heap->data[largest]) {
+        largest = left;
+    }
+    if (right < heap->size && heap->data[right] > heap->data[largest]) {
+        largest = right;
+    }
+    if (largest != index) {
+        swap(&heap->data[index], &heap->data[largest]);
+        heapifyDown(heap, largest);
+    }
+}
+
+// Function to extract the maximum element from the heap
+int extractMax(MaxHeap *heap) {
+    if (heap->size == 0) {
+        printf("Heap is empty!\n");
+        return -1;
+    }
+    int max = heap->data[0];
+    heap->data[0] = heap->data[heap->size - 1];
+    heap->size--;
+    heapifyDown(heap, 0);
+    return max;
+}
+
+// Function to print the heap
+void printHeap(MaxHeap *heap) {
+    for (int i = 0; i < heap->size; i++) {
+        printf("%d ", heap->data[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    MaxHeap heap;
+    initHeap(&heap);
+
+    insert(&heap, 10);
+    insert(&heap, 20);
+    insert(&heap, 15);
+    insert(&heap, 30);
+    insert(&heap, 40);
+
+    printf("Heap: ");
+    printHeap(&heap);
+
+    printf("Extracted Max: %d\n", extractMax(&heap));
+    printf("Heap after extraction: ");
+    printHeap(&heap);
+
+    return 0;
+}
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_SIZE 100
+
+typedef struct {
+    int data[MAX_SIZE];
+    int size;
+} MaxHeap;
+
+// Function to initialize the heap
+void initHeap(MaxHeap *heap) {
+    heap->size = 0;
+}
+
+// Function to swap two elements
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+// Function to heapify up (for insertion)
+void heapifyUp(MaxHeap *heap, int index) {
+    int parent = (index - 1) / 2;
+    if (index > 0 && heap->data[index] > heap->data[parent]) {
+        swap(&heap->data[index], &heap->data[parent]);
+        heapifyUp(heap, parent);
+    }
+}
+
+// Function to insert an element into the heap
+void insert(MaxHeap *heap, int value) {
+    if (heap->size == MAX_SIZE) {
+        printf("Heap is full!\n");
+        return;
+    }
+    heap->data[heap->size] = value;
+    heapifyUp(heap, heap->size);
+    heap->size++;
+}
+
+// Function to heapify down (for deletion)
+void heapifyDown(MaxHeap *heap, int index) {
+    int left = 2 * index + 1;
+    int right = 2 * index + 2;
+    int largest = index;
+
+    if (left < heap->size && heap->data[left] > heap->data[largest]) {
+        largest = left;
+    }
+    if (right < heap->size && heap->data[right] > heap->data[largest]) {
+        largest = right;
+    }
+    if (largest != index) {
+        swap(&heap->data[index], &heap->data[largest]);
+        heapifyDown(heap, largest);
+    }
+}
+
+// Function to extract the maximum element from the heap
+int extractMax(MaxHeap *heap) {
+    if (heap->size == 0) {
+        printf("Heap is empty!\n");
+        return -1;
+    }
+    int max = heap->data[0];
+    heap->data[0] = heap->data[heap->size - 1];
+    heap->size--;
+    heapifyDown(heap, 0);
+    return max;
+}
+
+// Function to print the heap
+void printHeap(MaxHeap *heap) {
+    for (int i = 0; i < heap->size; i++) {
+        printf("%d ", heap->data[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    MaxHeap heap;
+    initHeap(&heap);
+
+    insert(&heap, 10);
+    insert(&heap, 20);
+    insert(&heap, 15);
+    insert(&heap, 30);
+    insert(&heap, 40);
+
+    printf("Heap: ");
+    printHeap(&heap);
+
+    printf("Extracted Max: %d\n", extractMax(&heap));
+    printf("Heap after extraction: ");
+    printHeap(&heap);
+
+    return 0;
+}
+
