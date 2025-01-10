@@ -1,0 +1,85 @@
+In C, hashing is a technique used to convert data of arbitrary size (like strings or numbers) into a fixed-size value, typically a hash code or hash value. It is used to efficiently index data in hash tables, ensuring quick retrieval and insertion of data.
+
+Basic Concept
+The basic idea behind hashing is to take an input (e.g., a string or a number) and apply a hash function that produces a unique or near-unique output, called the hash code. This hash code is then used as an index to store or retrieve the original data in a hash table or other data structure.
+
+Hash Function
+A hash function takes an input and returns an integer, which represents the "index" in an array where the value associated with that input will be stored. Hash functions are typically designed to distribute values uniformly across the available range to reduce collisions.
+
+Collision
+A collision occurs when two different inputs result in the same hash value. To handle collisions, various techniques like chaining (linked lists at each index) or open addressing are used.
+
+Example: Implementing a Simple Hashing in C
+c
+Copy code
+#include <stdio.h>
+#include <string.h>
+
+#define TABLE_SIZE 10  // Define the size of the hash table
+
+// Simple hash function that sums up the ASCII values of each character
+int hashFunction(char *str) {
+    int hash = 0;
+    for (int i = 0; str[i] != '\0'; i++) {
+        hash += str[i];  // Sum up the ASCII values of each character
+    }
+    return hash % TABLE_SIZE;  // Return hash value modulo table size
+}
+
+// Hash table implementation
+void insertToHashTable(char *hashTable[], char *key) {
+    int index = hashFunction(key);  // Find the index using the hash function
+    hashTable[index] = key;  // Insert the key into the table at the calculated index
+}
+
+// Function to display the hash table
+void displayHashTable(char *hashTable[]) {
+    for (int i = 0; i < TABLE_SIZE; i++) {
+        if (hashTable[i] != NULL) {
+            printf("Index %d: %s\n", i, hashTable[i]);
+        } else {
+            printf("Index %d: NULL\n", i);
+        }
+    }
+}
+
+int main() {
+    char *hashTable[TABLE_SIZE] = {NULL};  // Initialize hash table with NULL values
+
+    insertToHashTable(hashTable, "apple");
+    insertToHashTable(hashTable, "banana");
+    insertToHashTable(hashTable, "orange");
+
+    displayHashTable(hashTable);  // Display the contents of the hash table
+
+    return 0;
+}
+Explanation:
+Hash Function (hashFunction): This function takes a string and sums the ASCII values of its characters. It then uses the modulo operator (%) to ensure the hash value fits within the bounds of the hash table size (TABLE_SIZE).
+
+Hash Table: A simple array hashTable is used to store the hash values. Each element in the array represents a bucket where a value can be stored.
+
+Insert Function (insertToHashTable): The insertToHashTable function calculates the hash index for the given string using the hashFunction, then stores the string at that index.
+
+Display Function (displayHashTable): This function prints the contents of the hash table.
+
+Output Example:
+yaml
+Copy code
+Index 0: banana
+Index 1: NULL
+Index 2: apple
+Index 3: NULL
+Index 4: NULL
+Index 5: NULL
+Index 6: NULL
+Index 7: orange
+Index 8: NULL
+Index 9: NULL
+Handling Collisions:
+In this simple example, if two strings hash to the same index, they will overwrite each other. To handle collisions, you can use techniques like:
+
+Chaining: Create a linked list at each index to store multiple values.
+Open Addressing: If a collision occurs, find the next available index in the table.
+Conclusion:
+Hashing is widely used for fast data retrieval and is a core concept in many data structures like hash tables and sets. The choice of hash function and collision resolution strategy is crucial to the performance of a hashing-based system.
